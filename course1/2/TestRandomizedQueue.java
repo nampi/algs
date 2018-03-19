@@ -3,7 +3,8 @@ import static org.junit.Assert.assertEquals;
 
 public class TestRandomizedQueue {
     private RandomizedQueue<Integer> b = new RandomizedQueue<>();
-    private int x = 15, y = 34;
+    private int x = 15;
+    private int y = 34;
 
     @Test
     public void emptyAfterCreating() {

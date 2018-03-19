@@ -3,7 +3,8 @@ import java.util.Iterator;
 public class Deque<Item> implements Iterable<Item> {
     private Item[] a; // array of items
     private int n; // number of elements on deque
-    private int s, f; // first, last element in deque
+    private int s; // first element in deque
+    private int f; // last element in deque
 
     /**
      * Construct an empty deque.
