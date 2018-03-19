@@ -42,15 +42,14 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException("Item must not be null");
         }
+        if (n == a.length) {
+            resize(2 * a.length);
+        }
         if (n != 0) {
-            if ((head + a.length - 1) % a.length == tail) {
-                resize(2 * a.length);
-            }
             head = (head + a.length - 1) % a.length;
         }
-
-        n++;
         a[head] = item;
+        n++;
     }
 
     /**
@@ -62,15 +61,14 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException("Item must not be null");
         }
+        if (n == a.length) {
+            resize(2 * a.length);
+        }
         if (n != 0) {
-            if (head == (tail + a.length + 1) % a.length) {
-                resize(2 * a.length);
-            }
             tail = (tail + a.length + 1) % a.length;
         }
-
-        n++;
         a[tail] = item;
+        n++;
     }
 
     /**
@@ -88,8 +86,6 @@ public class Deque<Item> implements Iterable<Item> {
         if (n != 0) {
             head = (head + a.length + 1) % a.length;
         }
-
-        // shrink size of array if necessary
         if (n > 0 && n == a.length / 4) {
             resize(a.length / 2);
         }
