@@ -4,8 +4,8 @@ import java.util.NoSuchElementException;
 public class Deque<Item> implements Iterable<Item> {
     private Item[] a; // array of items
     private int n; // number of elements on deque
-    private int s; // first element in deque (start)
-    private int f; // last element in deque (finish)
+    private int head; // index of the first element in deque
+    private int tail; // index of the last element in deque
 
     /**
      * Construct an empty deque.
@@ -13,8 +13,8 @@ public class Deque<Item> implements Iterable<Item> {
     public Deque() {
         a = (Item[]) new Object[2];
         n = 0;
-        s = 0;
-        f = 0;
+        head = 0;
+        tail = 0;
     }
 
     /**
@@ -43,14 +43,14 @@ public class Deque<Item> implements Iterable<Item> {
             throw new IllegalArgumentException("Item must not be null");
         }
         if (n != 0) {
-            if ((s + a.length - 1) % a.length == f) {
+            if ((head + a.length - 1) % a.length == tail) {
                 resize(2 * a.length);
             }
-            s = (s + a.length - 1) % a.length;
+            head = (head + a.length - 1) % a.length;
         }
 
         n++;
-        a[s] = item;
+        a[head] = item;
     }
 
     /**
@@ -63,14 +63,14 @@ public class Deque<Item> implements Iterable<Item> {
             throw new IllegalArgumentException("Item must not be null");
         }
         if (n != 0) {
-            if (s == (f + a.length + 1) % a.length) {
+            if (head == (tail + a.length + 1) % a.length) {
                 resize(2 * a.length);
             }
-            f = (f + a.length + 1) % a.length;
+            tail = (tail + a.length + 1) % a.length;
         }
 
         n++;
-        a[f] = item;
+        a[tail] = item;
     }
 
     /**
@@ -82,11 +82,11 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("Deque underflow");
         }
-        Item tmp = a[s];
+        Item tmp = a[head];
         n--;
-        a[s] = null; // to avoid loitering
+        a[head] = null; // to avoid loitering
         if (n != 0) {
-            s = (s + a.length + 1) % a.length;
+            head = (head + a.length + 1) % a.length;
         }
 
         // shrink size of array if necessary
@@ -105,11 +105,11 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("Deque underflow");
         }
-        Item tmp = a[f];
+        Item tmp = a[tail];
         n--;
-        a[f] = null;
+        a[tail] = null;
         if (n != 0) {
-            f = (f + a.length - 1) % a.length;
+            tail = (tail + a.length - 1) % a.length;
         }
         if (n > 0 && n == a.length / 4) {
             resize(a.length / 2);
@@ -121,12 +121,12 @@ public class Deque<Item> implements Iterable<Item> {
     private void resize(int capacity) {
         Item[] copy = (Item[]) new Object[capacity];
         for (int i = 0; i < n; i++) {
-            copy[i] = a[s];
-            s = (s + a.length + 1) % a.length;
+            copy[i] = a[head];
+            head = (head + a.length + 1) % a.length;
         }
         a = copy;
-        s = 0;
-        f = n - 1;
+        head = 0;
+        tail = n - 1;
     }
 
     /**
@@ -138,7 +138,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
     
     private class DequeIterator implements Iterator<Item> {
-        private int cur = s;
+        private int cur = head;
         private int number = 0;
 
         public boolean hasNext() {
