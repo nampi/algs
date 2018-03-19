@@ -1,4 +1,5 @@
 import org.junit.Test;
+import java.util.Iterator;
 import static org.junit.Assert.assertEquals;
 
 public class TestRandomizedQueue {
@@ -45,5 +46,26 @@ public class TestRandomizedQueue {
         assertEquals(new Integer(x), b.sample());
         assertEquals(false, b.isEmpty());
         assertEquals(1, b.size());
+    }
+
+    @Test
+    public void iteratorHasNoNextInEmptyQueue() {
+        Iterator<Integer> iter = b.iterator();
+        assertEquals(false, iter.hasNext());
+    }
+
+    @Test
+    public void iteratorHasNextInOneElemQueue() {
+        b.enqueue(x);
+        Iterator<Integer> iter = b.iterator();
+        assertEquals(true, iter.hasNext());
+    }
+
+    @Test
+    public void iterateThroughCollectionOfOneElem() {
+        b.enqueue(x);
+        for (Iterator<Integer> iter = b.iterator();iter.hasNext();) {
+            assertEquals(new Integer (x), iter.next());
+        }
     }
 }
