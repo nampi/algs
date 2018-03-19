@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import java.util.NoSuchElementException;
 
 public class TestDeque {
     @Rule
@@ -45,25 +46,29 @@ public class TestDeque {
 
     @Test
     public void shouldThrownExceptionAddFirstNullItem() {
-        expectedEx.expect(java.lang.IllegalArgumentException.class);
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Item must not be null");
         b.addFirst(null);
     }
 
     @Test
     public void shouldThrownExceptionAddLastNullItem() {
-        expectedEx.expect(java.lang.IllegalArgumentException.class);
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Item must not be null");
         b.addLast(null);
     }
 
     @Test
-    public void shouldThrownExceptionRemoveFirstInEmptyDeck() {
-        expectedEx.expect(java.util.NoSuchElementException.class);
+    public void shouldThrownExceptionRemoveFirstInEmptyDeque() {
+        expectedEx.expect(NoSuchElementException.class);
+        expectedEx.expectMessage("Deque underflow");
         b.removeFirst();
     }
 
     @Test
-    public void shouldThrownExceptionRemoveLastInEmptyDeck() {
-        expectedEx.expect(java.util.NoSuchElementException.class);
+    public void shouldThrownExceptionRemoveLastInEmptyDeque() {
+        expectedEx.expect(NoSuchElementException.class);
+        expectedEx.expectMessage("Deque underflow");
         b.removeLast();
     }
 }

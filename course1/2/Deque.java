@@ -1,10 +1,11 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
     private Item[] a; // array of items
     private int n; // number of elements on deque
-    private int s; // first element in deque
-    private int f; // last element in deque
+    private int s; // first element in deque (start)
+    private int f; // last element in deque (finish)
 
     /**
      * Construct an empty deque.
@@ -35,11 +36,11 @@ public class Deque<Item> implements Iterable<Item> {
     /**
      * Add the item to the front.
      * @param item the item to add
-     * @throws java.lang.IllegalArgumentException if item is null
+     * @throws IllegalArgumentException if item is null
      */
     public void addFirst(Item item) {
         if (item == null) {
-            throw new java.lang.IllegalArgumentException();
+            throw new IllegalArgumentException("Item must not be null");
         }
         if (n != 0) {
             if ((s + a.length - 1) % a.length == f) {
@@ -55,11 +56,11 @@ public class Deque<Item> implements Iterable<Item> {
     /**
      * Add the item to the end.
      * @param item the item to add
-     * @throws java.lang.IllegalArgumentException if item is null
+     * @throws IllegalArgumentException if item is null
      */
     public void addLast(Item item) {
         if (item == null) {
-            throw new java.lang.IllegalArgumentException();
+            throw new IllegalArgumentException("Item must not be null");
         }
         if (n != 0) {
             if (s == (f + a.length + 1) % a.length) {
@@ -75,11 +76,11 @@ public class Deque<Item> implements Iterable<Item> {
     /**
      * Remove and return the item from the front.
      * @return the item from the front
-     * @throws java.util.NoSuchElementException if the deck is empty
+     * @throws NoSuchElementException if the deque is empty
      */
     public Item removeFirst() {
         if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
+            throw new NoSuchElementException("Deque underflow");
         }
         Item tmp = a[s];
         n--;
@@ -98,11 +99,11 @@ public class Deque<Item> implements Iterable<Item> {
     /**
      * Remove and return the item from the end.
      * @return the item from the end
-     * @throws java.util.NoSuchElementException if the deck is empty
+     * @throws NoSuchElementException if the deque is empty
      */
     public Item removeLast() {
         if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
+            throw new NoSuchElementException("Deque underflow");
         }
         Item tmp = a[f];
         n--;
@@ -145,12 +146,12 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public void remove() {
-            throw new java.lang.UnsupportedOperationException();
+            throw new UnsupportedOperationException("Not yet implemented");
         }
 
         public Item next() {
             if (!hasNext()) {
-                throw new java.util.NoSuchElementException();
+                throw new NoSuchElementException("Deque underflow");
             }
             Item tmp = a[cur];
             cur = (cur + a.length + 1) % a.length;

@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] a;
@@ -34,7 +35,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public void enqueue(Item item)           // add the item
     {
         if (item == null) {
-            throw new java.lang.IllegalArgumentException();
+            throw new IllegalArgumentException("Item must not be null");
         }
 
         if (ind + 1 >= n) {
@@ -47,7 +48,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public Item dequeue()                    // remove and return a random item
     {
         if (ind == -1) {
-            throw new java.util.NoSuchElementException();
+            throw new NoSuchElementException("Queue underflow");
         }
 
         if (ind > 0 && ind == n / 4) {
@@ -65,7 +66,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    public Item sample()                     // return a random item (but do not remove it)
    {
        if (ind == -1) {
-           throw new java.util.NoSuchElementException();
+           throw new NoSuchElementException("Queue underflow");
        }
        return a[StdRandom.uniform(0, ind+1)];
    }
@@ -83,11 +84,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             return cur < size;
         }
         public void remove() {
-           throw new java.lang.UnsupportedOperationException();
+           throw new UnsupportedOperationException("Not yet implemented");
        }
         public Item next() {
             if (!hasNext()) {
-                throw new java.util.NoSuchElementException();
+                throw new NoSuchElementException("Queue underflow");
             }
             return a[index[cur++]];
         }
