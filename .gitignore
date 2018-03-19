@@ -1,0 +1,7 @@
+*.txt
+*.zip
+*.class
+*.html
+*.iml
+*.idea
+algs4/*
