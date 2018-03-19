@@ -7,19 +7,19 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private int n;
     private int ind = -1;
 
-    public RandomizedQueue()                // construct an empty randomized queue
-    {
+    // construct an empty randomized queue
+    public RandomizedQueue() {
         n = 2;
         a = (Item[]) new Object[n];
     }
 
-    public boolean isEmpty()                 // is the randomized queue empty?
-    {
+    // is the randomized queue empty?
+    public boolean isEmpty() {
         return ind == -1;
     }
 
-    public int size()                        // return the number of items on the randomized queue
-    {
+    // return the number of items on the randomized queue
+    public int size() {
         return ind + 1;
     }
 
@@ -32,8 +32,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         n = capacity;
     }
 
-    public void enqueue(Item item)           // add the item
-    {
+    // add the item
+    public void enqueue(Item item) {
         if (item == null) {
             throw new IllegalArgumentException("Item must not be null");
         }
@@ -45,8 +45,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         a[ind] = item;
     }
 
-    public Item dequeue()                    // remove and return a random item
-    {
+    // remove and return a random item
+    public Item dequeue() {
         if (ind == -1) {
             throw new NoSuchElementException("Queue underflow");
         }
@@ -63,16 +63,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return tmp;
    }
 
-   public Item sample()                     // return a random item (but do not remove it)
-   {
+   // return a random item (but do not remove it)
+   public Item sample() {
        if (ind == -1) {
            throw new NoSuchElementException("Queue underflow");
        }
        return a[StdRandom.uniform(0, ind+1)];
    }
 
-   public Iterator<Item> iterator()         // return an independent iterator over items in random order
-   {
+   // return an independent iterator over items in random order
+   public Iterator<Item> iterator() {
        return new RandomizedQueueIterator();
    }
 
@@ -85,7 +85,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         public void remove() {
            throw new UnsupportedOperationException("Not yet implemented");
-       }
+        }
         public Item next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("Queue underflow");
