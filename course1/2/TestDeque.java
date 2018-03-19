@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -36,7 +38,7 @@ public class TestDeque {
 
     @Test
     public void emptyAfterCreating() {
-        assertEquals(true, b.isEmpty());
+        assertTrue(b.isEmpty());
     }
 
     @Test
